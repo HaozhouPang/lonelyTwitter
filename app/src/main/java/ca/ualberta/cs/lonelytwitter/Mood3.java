@@ -7,10 +7,9 @@ import java.util.Date;
  */
 
 public class Mood3 extends Mood1 {
-    public String Mood() {
-        return currentMood;
+    public void setMood3(){
+        super.setCurrentMood("Sad");
     }
-
     public Mood3(String currentMood) {
         super(currentMood);
     }
