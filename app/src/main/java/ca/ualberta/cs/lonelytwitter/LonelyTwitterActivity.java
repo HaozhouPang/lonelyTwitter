@@ -34,6 +34,22 @@ public class LonelyTwitterActivity extends Activity {
 		Button saveButton = (Button) findViewById(R.id.save);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
+		try {
+			Tweet tweet = new NormalTweet("First tweet");
+			tweet.setMessage("hello");
+			ImportantTweet importanttweet = new ImportantTweet("very important");
+			importanttweet.getDate();
+			NormalTweet normalTweet = new NormalTweet("I'm normal");
+
+			ArrayList<Tweet> arraylist = new ArrayList<Tweet>();
+			arraylist.add(tweet);
+			arraylist.add((Tweet) importanttweet);
+			arraylist.add(normalTweet);
+
+		} catch (TweetTooLongException e) {
+			e.printStackTrace();
+		}
+
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
