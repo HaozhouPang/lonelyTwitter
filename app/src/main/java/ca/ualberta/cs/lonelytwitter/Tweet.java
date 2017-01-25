@@ -34,21 +34,31 @@ public abstract class  Tweet implements Tweetable{
     }
 
 
-    public Tweet(String message, Date date) throws TweetTooLongException {
-        this.setMessage(message);
+    public Tweet(String message, Date date) {
+        this.message = message;
         this.date = date;
     }
 
-    public Tweet(String message) throws TweetTooLongException {
-        this.setMessage(message);
+    public Tweet(String message) {
+        this.message = message;
         this.date = new Date();
     }
 
     public abstract Boolean isImportant();
 
-    ArrayList<Mood1> arraylist = new ArrayList<Mood1>();
+
+
+    ArrayList<Mood1> arraylist2 = new ArrayList<Mood1>();
+
     public void addMood(Mood1 mood){
-        this.arraylist.add(mood);
+
+        this.arraylist2.add(mood);
     }
+    @Override
+    public String toString() {
+        return date.toString() + " | " + message;
+    }
+
+
 
 }

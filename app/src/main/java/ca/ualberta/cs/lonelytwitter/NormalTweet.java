@@ -7,11 +7,11 @@ import java.util.Date;
  */
 
 public class NormalTweet extends Tweet {
-    public NormalTweet(String message, Date date) throws TweetTooLongException {
+    public NormalTweet(String message, Date date) {
         super(message, date);
     }
 
-    public NormalTweet(String message) throws TweetTooLongException {
+    public NormalTweet(String message) {
         super(message);
     }
 
