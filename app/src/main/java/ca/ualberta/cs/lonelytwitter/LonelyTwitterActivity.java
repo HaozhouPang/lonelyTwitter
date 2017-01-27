@@ -40,6 +40,9 @@ public class LonelyTwitterActivity extends Activity {
 
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
+
+		Button clearButton = (Button) findViewById(R.id.clear);
+
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 		try {
@@ -78,6 +81,26 @@ public class LonelyTwitterActivity extends Activity {
 
 			}
 		});
+		clearButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				//setResult(RESULT_OK);
+				//String text = bodyText.getText().toString();
+
+				//Tweet tweet = new NormalTweet(text);
+
+
+				tweetList.clear();
+//adapter.add(tweetList);
+				adapter.notifyDataSetChanged();
+				saveInFile();
+
+
+//				saveInFile(text, new Date(System.currentTimeMillis()));
+//				finish();
+
+			}
+		});
 	}
 
 	@Override
@@ -85,7 +108,7 @@ public class LonelyTwitterActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStart();
 		loadFromFile();
-        //tweetList = new ArrayList<Tweet>();
+		//tweetList = new ArrayList<Tweet>();
 		adapter = new ArrayAdapter<Tweet>(this,
 				R.layout.list_item, tweetList);
 		oldTweetsList.setAdapter(adapter);
@@ -110,7 +133,7 @@ public class LonelyTwitterActivity extends Activity {
 			throw new RuntimeException();
 		}
 	}
-	
+
 	private void saveInFile() {
 		try {
 			FileOutputStream fos = openFileOutput(FILENAME,
