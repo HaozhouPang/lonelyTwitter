@@ -24,9 +24,54 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * This class is the main view class <br> In this class, user interaction
+ * and file manipulation is performed.
+ * all files are in the form of "json: files that are stored in Emulator;s accessible from
+ * Android Device Monitor.
+ * <pre>
+ * 	pre-formatted text: <br>
+ * 		file Explorer -> data -> data -> ca.ualberta.cs.lonelytweeter ->fles -> file.save
+ * </pre>
+ * <code> begin <br>
+ * some pseudo code <br>
+ * end </code>
+ * This file name is indicated in the &nbsp &nbsp &nbsp FILENAME constant
+ * <ul>
+ * <ol>
+ * <li> item1 </li>
+ * <li> item2 </li>
+ * <li> item3 </li>
+ * </ol>
+ *
+ * @version 1.0
+ * @authur haozhou
+ * @@see Tweet
+ * @since 0.5
+ */
 public class LonelyTwitterActivity extends Activity {
+	/**
+	 * The file that all the tweets are stored there, the format of file is JSON
+	 * @see #loadFromFile()
+	 * @see #saveInFile()
+	 */
+
 
 	private static final String FILENAME = "file.sav";
+	private enum TweetListOrdering {
+		/**
+		 * Date ascending tweet list ordering.
+		 */
+		DATE_ASCENDING, /**
+		 * Date descending tweet list ordering.
+		 */
+		DATE_DESCENDING, /**
+		 * Text ascending tweet list ordering.
+		 */
+		TEXT_ASCENDING, /**
+		 * Text descending tweet list ordering.
+		 */
+		TEXT_DESCENDING}
 	private EditText bodyText;
 	private ListView oldTweetsList;
 
@@ -66,6 +111,10 @@ public class LonelyTwitterActivity extends Activity {
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
+
+
+				text = trimExtraSpace(text);
+
 
 				Tweet tweet = new NormalTweet(text);
 
@@ -114,6 +163,32 @@ public class LonelyTwitterActivity extends Activity {
 		oldTweetsList.setAdapter(adapter);
 	}
 
+
+	/**
+	 *This method trims extra spaces using regular expression
+	 * @param inputString string that needs to be cleared of extra spaces
+	 * @return string
+     */
+	private String trimExtraSpace (String inputString){
+		inputString = inputString.replaceAll("\\s+", " ");
+		return inputString;
+	}
+
+
+	/**
+	 * This method sorts the items in tweet list and refreshes the adapter.
+	 * @param ordering to be used.
+     */
+	private void sortTweetListItems(TweetListOrdering ordering){
+
+	}
+
+	/**
+	 * Loads tweets from specified file
+	 *
+	 * @throws TweetTooLongException if the tweet is too long.
+	 * @exception FileNotFoundException if the file is not created first.
+	 */
 	private void loadFromFile() {
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
@@ -133,6 +208,11 @@ public class LonelyTwitterActivity extends Activity {
 			throw new RuntimeException();
 		}
 	}
+
+	/**
+	 * save tweets into a specified file in JSON format.
+	 * @throws FileNotFoundException if file is not created.
+	 */
 
 	private void saveInFile() {
 		try {
