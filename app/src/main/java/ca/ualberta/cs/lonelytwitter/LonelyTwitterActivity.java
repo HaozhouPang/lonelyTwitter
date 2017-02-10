@@ -63,13 +63,19 @@ public class LonelyTwitterActivity extends Activity {
 		clearButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				//setResult(RESULT_OK);
-				//tweetList.clear();
+				setResult(RESULT_OK);
+				tweetList.clear();
 				//deleteFile(FILENAME);  // TODO deprecate this button
-				//adapter.notifyDataSetChanged();
 				ElasticsearchTweetController.GetTweetsTask getTweetTask = new ElasticsearchTweetController.GetTweetsTask();
-				getTweetTask.execute("");
 
+				getTweetTask.execute(bodyText.getText().toString());
+
+				try {
+					tweetList.addAll(getTweetTask.get());
+				} catch (Exception e) {
+					Log.i("Error", "Failed to get the tweets out of asyc object");
+				}
+				adapter.notifyDataSetChanged();
 
 			}
 		});
